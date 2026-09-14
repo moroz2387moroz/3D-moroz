@@ -1,0 +1,1 @@
+(()=>{var o={725(o){o.exports=()=>{console.log("Название модуля: one.js")}},951(o){o.exports=()=>{console.log("Название модуля: two.js")}}};const s={};function t(e){const n=s[e];if(void 0!==n)return n.exports;const r=s[e]={exports:{}};return o[e](r,r.exports,t),r.exports}const e=t(725),n=t(951);e(),n()})();
