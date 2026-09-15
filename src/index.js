@@ -1,5 +1,3 @@
-const one = require("./modules/one");
-const two = require("./modules/two");
+import timer from "./modules/timer.js";
 
-one();
-two();
+timer("2026-09-19T00:00:00");
