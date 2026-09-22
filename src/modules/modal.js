@@ -6,7 +6,6 @@ const modal = () => {
     return;
   }
 
-  const closeBts = modalWindow.querySelector(".popup-close");
   const isMobile = window.matchMedia("(max-width: 767px)").matches;
 
   const animateModal = (targetOpacity, targetTranslateY, onComplete) => {
@@ -69,9 +68,18 @@ const modal = () => {
     bts.addEventListener("click", openModal);
   });
 
-  if (closeBts) {
-    closeBts.addEventListener("click", closeModal);
-  }
+  // if (closeBts) {
+  //   closeBts.addEventListener("click", closeModal);
+  // }
+
+  modalWindow.addEventListener("click", (e) => {
+    if (
+      !e.target.closest(".popup-content") ||
+      e.target.classList.contains("popup-close")
+    ) {
+      closeModal();
+    }
+  });
 };
 
 export default modal;

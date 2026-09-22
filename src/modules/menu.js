@@ -1,27 +1,27 @@
 const menu = () => {
-  const menuBts = document.querySelector(".menu");
-  const menu = document.querySelector("menu");
-  const closeBts = menu.querySelector(".close-btn");
-  const menuItems = menu.querySelectorAll("ul>li>a");
+  const menuButton = document.querySelector(".menu");
+  const menuElement = document.querySelector("menu");
 
-  const handleMenu = () => {
-    // if (!menu.style.transform) {
-    //   menu.style.transform = "translateX(0)";
-    // } else {
-    //   menu.style.transform = "";
-    // }
-    menu.classList.toggle("active-menu");
-  };
+  if (!menuButton || !menuElement) {
+    return;
+  }
 
-  menuBts.addEventListener("click", handleMenu);
+  document.addEventListener("click", (event) => {
+    if (event.target.closest(".menu") === menuButton) {
+      menuElement.classList.toggle("active-menu");
+    }
+  });
 
-  closeBts.addEventListener("click", handleMenu);
+  menuElement.addEventListener("click", (event) => {
+    const target = event.target.closest(".close-btn, ul li a");
 
-  // for (let i = 0; i < menuItems.length; i++) {
-  //   menuItems[i].addEventListener("click", handleMenu);
-  // }
-
-  menuItems.forEach((item) => item.addEventListener("click", handleMenu));
+    if (target) {
+      if (target.classList.contains("close-btn")) {
+        event.preventDefault();
+      }
+      menuElement.classList.remove("active-menu");
+    }
+  });
 };
 
 export default menu;
