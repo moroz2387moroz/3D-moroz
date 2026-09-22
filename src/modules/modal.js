@@ -1,3 +1,5 @@
+import { animate } from "./helpers.js";
+
 const modal = () => {
   const modalWindow = document.querySelector(".popup");
   const buttons = document.querySelectorAll(".popup-btn");
@@ -18,7 +20,6 @@ const modal = () => {
       return;
     }
 
-    const start = performance.now();
     const startOpacity = Number(modalWindow.style.opacity) || 0;
 
     const startTranslateY =
@@ -28,27 +29,24 @@ const modal = () => {
           .replace("px)", ""),
       ) || 0;
 
-    const tick = (now) => {
-      const progress = Math.min((now - start) / 300, 1);
-      const eased = 1 - (1 - progress) ** 3;
+    animate({
+      duration: 300,
+      timing: (progress) => 1 - (1 - progress) ** 3,
+      draw: (progress) => {
+        modalWindow.style.opacity = (
+          startOpacity +
+          (targetOpacity - startOpacity) * progress
+        ).toFixed(3);
+        modalWindow.style.transform = `translateY(${(
+          startTranslateY +
+          (targetTranslateY - startTranslateY) * progress
+        ).toFixed(2)}px)`;
 
-      modalWindow.style.opacity = (
-        startOpacity +
-        (targetOpacity - startOpacity) * eased
-      ).toFixed(3);
-      modalWindow.style.transform = `translateY(${(
-        startTranslateY +
-        (targetTranslateY - startTranslateY) * eased
-      ).toFixed(2)}px)`;
-
-      if (progress < 1) {
-        requestAnimationFrame(tick);
-      } else if (onComplete) {
-        onComplete();
-      }
-    };
-
-    requestAnimationFrame(tick);
+        if (progress === 1 && onComplete) {
+          onComplete();
+        }
+      },
+    });
   };
 
   const openModal = () => {
