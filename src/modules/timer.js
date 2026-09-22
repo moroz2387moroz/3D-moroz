@@ -33,8 +33,9 @@ const timer = (deadline) => {
     timeSeconds.textContent = String(seconds).padStart(2, "0");
   };
 
+  let timerId;
   updateClock();
-  const timerId = setInterval(updateClock, 1000);
+  timerId = setInterval(updateClock, 1000);
 };
 
 export default timer;
