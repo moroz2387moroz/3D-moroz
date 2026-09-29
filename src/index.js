@@ -5,6 +5,7 @@ import form from "./modules/form.js";
 import tabs from "./modules/tabs.js";
 import slider from "./modules/slider.js";
 import calc from "./modules/calc.js";
+import sendForm from "./modules/sendForm.js";
 
 timer("2026-09-19T00:00:00");
 menu();
@@ -13,3 +14,14 @@ form();
 tabs();
 slider();
 calc(100);
+sendForm({
+  formId: "form1",
+  elems: [
+    {
+      type: "block",
+      id: "total",
+    },
+  ],
+});
+sendForm({ formId: "form2" });
+sendForm({ formId: "form3" });
